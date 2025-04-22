@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createClientComponentClient } from "@supabase/auth-helpers-react";
+import { createClient } from "@supabase/supabase-js";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +13,10 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
-  const supabase = createClientComponentClient();
+  const supabase = createClient(
+    import.meta.env.VITE_SUPABASE_URL ?? "",
+    import.meta.env.VITE_SUPABASE_ANON_KEY ?? ""
+  );
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
