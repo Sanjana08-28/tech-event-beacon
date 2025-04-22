@@ -1,8 +1,8 @@
 import React from 'react';
 import { Event } from '@/types/event';
 import EventList from '@/components/EventList';
-import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { DashboardSidebar } from '@/components/DashboardSidebar';
 
 // Sample events data (in a real app, this would come from an API)
 const sampleEvents: Event[] = [
@@ -35,25 +35,23 @@ const sampleEvents: Event[] = [
   },
 ];
 
-const Index = () => {
+const Dashboard = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
-        <header className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Campus Events</h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
-            Discover upcoming hackathons and technical events, both on and off campus.
-          </p>
-          <Button asChild>
-            <Link to="/dashboard">Go to Dashboard</Link>
-          </Button>
-        </header>
-        <main>
-          <EventList events={sampleEvents} />
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <DashboardSidebar />
+        <main className="flex-1 p-6 bg-gray-50">
+          <div className="max-w-7xl mx-auto">
+            <header className="mb-8">
+              <h1 className="text-3xl font-bold text-gray-900">My Events Dashboard</h1>
+              <p className="mt-2 text-gray-600">Manage and track your events</p>
+            </header>
+            <EventList events={sampleEvents} />
+          </div>
         </main>
       </div>
-    </div>
+    </SidebarProvider>
   );
 };
 
-export default Index;
+export default Dashboard;
